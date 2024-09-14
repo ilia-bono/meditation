@@ -1,5 +1,5 @@
 import { View, Text, FlatList, Pressable, ImageBackground, ImageSourcePropType } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import AppGradient from '@/components/AppGradient';
 import { StatusBar } from 'expo-status-bar';
 
@@ -7,13 +7,20 @@ import { MEDITATION_DATA } from '@/constants/MeditationData';
 import MEDITATION_IMAGES from '@/constants/meditation-images';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Href, router } from 'expo-router';
+import { TimerContext } from '@/context/TimerContext';
 
 const NatureMeditate = () => {
+   const { setDuration } = useContext(TimerContext);
+
+   const handleMeditate = (itemId: number) => {
+      setDuration(10);
+      router.push(`/meditate/${itemId}` as Href<string>);
+   };
    return (
       <View className='flex-1'>
          <AppGradient colors={['#161b2e', '#0a4d4a', '#766e67']}>
             <View className='mb-6'>
-               <Text className='text-gray-200 mb-3 font-bold text-4xl text-left'>Welcome, Sam!</Text>
+               <Text className='text-gray-200 mb-3 font-bold text-4xl text-left'>Welcome!</Text>
                <Text className='text-indigo-100 text-xl font-medium'>Start your meditation today</Text>
             </View>
 
@@ -25,7 +32,7 @@ const NatureMeditate = () => {
                   showsVerticalScrollIndicator={false}
                   renderItem={({ item }) => (
                      <Pressable
-                        onPress={() => router.push('/meditate' as Href<'/meditate'>)}
+                        onPress={() => handleMeditate(item.id)}
                         className='h-48 my-3 rounded-md overflow-hidden'
                      >
                         <ImageBackground

@@ -44,7 +44,7 @@ const AffirmationPractice = () => {
                            ? sentences?.map((sentence, idx) => (
                                 <Text
                                    key={sentence.replaceAll(' ', '')}
-                                   className='text-white text-3xl mb-10 font-bold text-center'
+                                   className='text-white text-3xl mb-7 font-bold text-center'
                                 >
                                    {sentence}.
                                 </Text>
